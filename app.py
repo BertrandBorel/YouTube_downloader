@@ -29,13 +29,33 @@ def download():
         label2.configure(text="Echec...", foreground="white", background="red")
 
 
+# fonction pour télécharger au format mp4
+def download_mp4():
+    try : 
+        url = entry.get()  # obtenir l'URL à partir de l'entrée
+        yt = YouTube(url)
+        streams = yt.streams
+        audio_streams = streams.filter(only_audio=True)
+        audio = audio_streams.first()
+        audio.download()
+        label2.configure(text="Le téléchargement est réussi!", foreground="white", background="green")
+
+    except :
+        label2.configure(text="Echec...", foreground="white", background="red")
+
+
+
 # bouton pour télécharger la vidéo
-button = tk.Button(root, text="Télécharger", command=download)
+button = tk.Button(root, text="Télécharger vidéo", command=download)
+
+# bouton pour télécharger le son
+button2 = tk.Button(root, text="Télécharger mp4", command=download_mp4)
 
 # placement des éléments
-label.pack()
-entry.pack()
-button.pack()
+label.pack(pady=5)
+entry.pack(pady=5)
+button.pack(pady=10)
+button2.pack()
 label2.pack()
 
 
